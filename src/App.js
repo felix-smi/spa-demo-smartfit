@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import SmartfitButton from './SmartfitButton';
 
 function App() {
+  const [ean, setEan] = useState(4052968298162);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', maxWidth: '400px' }}
+    >
+      <h1>Please enter an EAN</h1>
+      <input
+        type='text'
+        value={ean}
+        onChange={(event) => setEan(event.target.value)}
+        style={{ maxWidth: '150px', marginBottom: '10px' }}
+      />
+      {!!ean ? <SmartfitButton ean={ean} /> : <p>Please enter a valid EAN</p>}
     </div>
   );
 }
