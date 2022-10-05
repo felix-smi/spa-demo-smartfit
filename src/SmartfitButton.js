@@ -38,6 +38,7 @@ const SmartfitButton = ({ ean }) => {
     if (typeof window == 'undefined') return;
     if (!window?.oz?.destroy || !ozContainer.current) return;
     if (!ean) return window.oz.destroy();
+
     window.oz.destroy();
     window.oz.initialize();
   }, [ean]);
@@ -47,7 +48,7 @@ const SmartfitButton = ({ ean }) => {
       <button
         id='my-custom-oz-button'
         ref={ozContainer}
-        class='oz-trigger'
+        className='oz-trigger'
         data-oz-widget-type='sizing'
         data-oz-code={ean}
         data-oz-name='Flying Pigeon'
