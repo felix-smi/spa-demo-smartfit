@@ -1,8 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SmartfitButton from './SmartfitButton';
 
 function App() {
   const [ean, setEan] = useState(4052968298162);
+
+  useEffect(() => {
+    if (typeof window == 'undefined') return;
+    if (!window?.oz?.destroy) return;
+
+    window.oz.destroy();
+
+    if (!!ean) window.oz.initialize();
+  }, [!!ean]);
 
   return (
     <div

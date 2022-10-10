@@ -1,14 +1,35 @@
 import { useEffect, useRef } from 'react';
 
+import './SmartfitButton.css';
+
 const SmartfitButton = ({ ean }) => {
   const ozContainer = useRef();
 
+  const showSizingButton = ({ id }) => {
+    console.log('showSizingButton');
+    if (ozContainer.current.classList.contains('hidden'))
+      ozContainer.current.classList.remove('hidden');
+  };
+
+  const hideSizingButton = () => {
+    console.log('hideSizingButton');
+    if (!ozContainer.current.classList.contains('hidden'))
+      ozContainer.current.classList.add('hidden');
+  };
+
   const OZ_CONFIG = {
     settings: {
-      apiKey: process.env.SMARTFIT_API_KEY,
+      apiKey: 'YOUR_API_KEY',
       language: 'en',
     },
-    events: {},
+    events: {
+      sizingAvailable: {
+        callback: showSizingButton,
+      },
+      sizingUnavailable: {
+        callback: hideSizingButton,
+      },
+    },
   };
 
   useEffect(() => {
@@ -31,16 +52,16 @@ const SmartfitButton = ({ ean }) => {
       'oz',
       OZ_CONFIG,
       'https://staging-widgets.onlinesizing.bike/static/js/loader.js'
+      // 'https://dev01-widgets.onlinesizing.bike/static/js/loader.js'
     );
   }, []);
 
   useEffect(() => {
     if (typeof window == 'undefined') return;
-    if (!window?.oz?.destroy || !ozContainer.current) return;
-    if (!ean) return window.oz.destroy();
-
-    window.oz.destroy();
-    window.oz.initialize();
+    if (!window?.oz?.updateWidgetConfigurations || !ozContainer.current) return;
+    if (!ean) return;
+    ozContainer.current.setAttribute(`data-${window.oz.namespace}-code`, ean);
+    window.oz.updateWidgetConfigurations([ozContainer.current]);
   }, [ean]);
 
   return (
@@ -48,7 +69,7 @@ const SmartfitButton = ({ ean }) => {
       <button
         id='my-custom-oz-button'
         ref={ozContainer}
-        className='oz-trigger'
+        className='oz-trigger hidden'
         data-oz-widget-type='sizing'
         data-oz-code={ean}
         data-oz-name='Flying Pigeon'
@@ -56,7 +77,7 @@ const SmartfitButton = ({ ean }) => {
         data-oz-fullscreen='true'
         style={{ maxWidth: '150px' }}
       >
-        What's my size?
+        Find my size
       </button>
     </>
   );
