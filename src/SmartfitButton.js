@@ -75,7 +75,6 @@ const SmartfitButton = ({ ean }) => {
         data-oz-name='Flying Pigeon'
         data-oz-image='https://upload.wikimedia.org/wikipedia/commons/4/41/Left_side_of_Flying_Pigeon.jpg'
         data-oz-fullscreen='true'
-        style={{ maxWidth: '150px' }}
       >
         Find my size
       </button>

@@ -1,3 +1,7 @@
 .hidden {
     background: lightcoral;
 }
+
+button {
+    max-width: 160px;
+}
