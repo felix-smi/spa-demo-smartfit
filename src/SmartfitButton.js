@@ -7,14 +7,16 @@ const SmartfitButton = ({ ean }) => {
 
   const showSizingButton = ({ id }) => {
     console.log('showSizingButton');
-    if (ozContainer.current.classList.contains('hidden'))
-      ozContainer.current.classList.remove('hidden');
+    const button = document.getElementById(id);
+    if (button && button.classList.contains('hidden'))
+      button.classList.remove('hidden');
   };
 
-  const hideSizingButton = () => {
+  const hideSizingButton = ({ id }) => {
     console.log('hideSizingButton');
-    if (!ozContainer.current.classList.contains('hidden'))
-      ozContainer.current.classList.add('hidden');
+    const button = document.getElementById(id);
+    if (button && !button.classList.contains('hidden'))
+      button.classList.add('hidden');
   };
 
   const OZ_CONFIG = {
@@ -51,8 +53,7 @@ const SmartfitButton = ({ ean }) => {
       'script',
       'oz',
       OZ_CONFIG,
-      'https://staging-widgets.onlinesizing.bike/static/js/loader.js'
-      // 'https://dev01-widgets.onlinesizing.bike/static/js/loader.js'
+      'https://widgets.onlinesizing.bike/loader.js'
     );
   }, []);
 
