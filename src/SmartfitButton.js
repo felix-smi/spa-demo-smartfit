@@ -62,6 +62,9 @@ const SmartfitButton = ({ ean }) => {
     if (!window?.oz?.updateWidgetConfigurations || !ozContainer.current) return;
     if (!ean) return;
     ozContainer.current.setAttribute(`data-${window.oz.namespace}-code`, ean);
+    // ozContainer.current.setAttribute(`data-${window.oz.namespace}-name`, "BIKE_DISPLAY_NAME");
+    // ozContainer.current.setAttribute(`data-${window.oz.namespace}-image`, "IMAGE_URL");
+
     window.oz.updateWidgetConfigurations([ozContainer.current]);
   }, [ean]);
 
